@@ -10,13 +10,14 @@ set ruler
 set nowrap
 set tw=80
 set expandtab
-"set tabstop=2
-"set softtabstop=2
-"set shiftwidth=2
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set incsearch
 set mouse=a
 set clipboard=unnamed
 set conceallevel=2
+set backspace=indent,eol,start
 
 set background=dark
 colors solarized
