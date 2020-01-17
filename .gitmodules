@@ -10,3 +10,6 @@
 [submodule ".vim/bundle/vim-firestore"]
 	path = .vim/bundle/vim-firestore
 	url = https://github.com/delphinus/vim-firestore.git
+[submodule ".vim/bundle/nerdtree"]
+	path = .vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
