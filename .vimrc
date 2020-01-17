@@ -45,6 +45,7 @@ nmap <right> :wincmd l<CR>
 nmap <up> :wincmd k<CR>
 nmap <down> :wincmd j<CR>
 nmap <C-n> :NERDTreeToggle<CR>
+nmap <C-c> :call system('xclip', @0)<CR>
 
 "Run line(s) as command. Useful for per-file config
 "nmap <C-b> "zyy:@z<CR>

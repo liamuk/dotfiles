@@ -1,0 +1,7 @@
+touch ~/sentinel
+kupfer &
+pcmanfm -d
+systemctl --user restart sxhkd
+systemctl --user restart dunst
+systemctl --user restart polybar
+touch ~/sentinel2
