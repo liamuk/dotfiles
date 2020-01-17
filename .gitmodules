@@ -1,0 +1,12 @@
+[submodule ".vim/bundle/ale"]
+	path = .vim/bundle/ale
+	url = https://github.com/w0rp/ale.git
+[submodule ".vim/bundle/clang_complete"]
+	path = .vim/bundle/clang_complete
+	url = https://github.com/xavierd/clang_complete
+[submodule ".vim/bundle/vim-prettier"]
+	path = .vim/bundle/vim-prettier
+	url = https://github.com/prettier/vim-prettier.git
+[submodule ".vim/bundle/vim-firestore"]
+	path = .vim/bundle/vim-firestore
+	url = https://github.com/delphinus/vim-firestore.git
