@@ -1,23 +1,44 @@
+[colors]
+base03 =    #dd002b36
+base02 =    #dd073642
+base01 =    #dd586e75
+base00 =    #dd657b83
+base0 =     #dd839496
+base1 =     #dd93a1a1
+base2 =     #ddeee8d5
+base3 =     #ddfdf6e3
+yellow =    #ccb58900
+orange =    #fba922
+red =       #ccdc322f
+magenta =   #ccd33682
+violet =    #cc6c71c4
+blue =      #cc268bd2
+cyan =      #cc2aa198
+green =     #cc859900
+
+clear = #00000000
+module-bg = #cc000000
+
 [bar/base]
 bottom = true
 width = 100%
 height = 27
 
-background = #ff000000
-foreground = #ccffffff
+background = ${colors.clear}
+foreground = ${colors.base3}
 
-font-0 = NotoSans-Regular:size=8;-1
-font-1 = MaterialIcons:size=10;0
-font-2 = Termsynu:size=8:antialias=false;-2
-font-3 = FontAwesome:size=10;0
+font-0 = Dejavu Sans Mono:size=9;3
+font-1 = Material Icons:size=11;4
 
 modules-left = bspwm 
-modules-right = date network cpu ram power
+modules-right = cpu ram volume date power
 
 [module/date]
 type = internal/date
-date = %%{F#99}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
-date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
+date = %%{F#99}%Y-%m-%d%%{F-}  %H:%M%%{F-}
+date-alt = %A, %d %B %Y  %H:%M:%%{F#fba922}%S%%{F-} %Z
+format-background = ${colors.module-bg}
+format-padding = 2
 
 [module/network]
 type = internal/network
@@ -30,9 +51,13 @@ label-disconnected-foreground = #66
 [module/cpu]
 type = internal/cpu
 interval = 0.5
-format = <label> <ramp-coreload>
 label = CPU
+format = <label> <ramp-coreload>
+format-margin = 1
+format-padding = 2
+format-background = ${colors.module-bg}
 
+ramp-coreload-spacing = 0
 ramp-coreload-0 = ▁
 ramp-coreload-0-font = 2
 ramp-coreload-0-foreground = #aaff77
@@ -60,84 +85,101 @@ ramp-coreload-7-foreground = #ff5555
 
 [module/ram]
 type = internal/memory
-format = <label> <bar-used>
-label = RAM
-
-bar-used-width = 30
-bar-used-foreground-0 = #aaff77
-bar-used-foreground-1 = #aaff77
-bar-used-foreground-2 = #fba922
-bar-used-foreground-3 = #ff5555
-bar-used-indicator = |
-bar-used-indicator-font = 6
-bar-used-indicator-foreground = #ff
-bar-used-fill = ─
-bar-used-fill-font = 6
-bar-used-empty = ─
-bar-used-empty-font = 6
-bar-used-empty-foreground = #444444
+format = <label>
+label = RAM %percentage_used%%
+format-margin = 0
+format-padding = 2
+format-background = ${colors.module-bg}
 
 [module/power]
 type = custom/menu
 
-format-padding = 5
+padding = 2
+
+format-background = ${colors.module-bg}
+format-padding = 2
+format-margin = 1
 
 label-open = 
 label-close = 
+expand-right = false
 
-menu-0-0 = Terminate WM
-menu-0-0-foreground = #fba922
+menu-0-0 = Logout
+menu-0-0-foreground = ${colors.orange}
+menu-0-0-padding = ${module/power.padding}
 menu-0-0-exec = bspc quit -1
 menu-0-1 = Reboot
-menu-0-1-foreground = #fba922
-menu-0-1-exec = menu_open-1
-menu-0-2 = Power off
-menu-0-2-foreground = #fba922
-menu-0-2-exec = menu_open-2
+menu-0-1-foreground = ${colors.orange}
+menu-0-1-padding = ${module/power.padding}
+menu-0-1-exec = menu-open-1
+menu-0-2 = Shutdown
+menu-0-2-foreground = ${colors.orange}
+menu-0-2-padding = ${module/power.padding}
+menu-0-2-exec = menu-open-2
 
 menu-1-0 = Cancel
-menu-1-0-foreground = #fba922
-menu-1-0-exec = menu_open-0
+menu-1-0-foreground = ${colors.orange}
+menu-1-0-padding = ${module/power.padding}
+menu-1-0-exec = menu-open-0
 menu-1-1 = Reboot
-menu-1-1-foreground = #fba922
+menu-1-1-foreground = ${colors.orange}
+menu-1-1-padding = ${module/power.padding}
 menu-1-1-exec = sudo reboot
 
-menu-2-0 = Power off
-menu-2-0-foreground = #fba922
+menu-2-0 = Shutdown
+menu-2-0-foreground = ${colors.orange}
+menu-2-0-padding = ${module/power.padding}
 menu-2-0-exec = sudo poweroff
 menu-2-1 = Cancel
-menu-2-1-foreground = #fba922
-menu-2-1-exec = menu_open-0
+menu-2-1-foreground = ${colors.orange}
+menu-2-1-padding = ${module/power.padding}
+menu-2-1-exec = menu-open-0
+
+[module/volume]
+type = internal/pulseaudio
+
+format-volume = VOL <label-volume>
+format-volume-background = ${colors.module-bg}
+format-volume-margin = 1
+format-volume-padding = 2
+
+format-muted-background = ${colors.module-bg}
+format-muted-margin = 1
+format-muted-padding = 2
+
+format-muted = VOL mute<label-muted>
+label-muted = 🔇 
+
+ramp-volume-0 = 🔈
+ramp-volume-1 = 🔉
+ramp-volume-2 = 🔊
+
+click-right = pavucontrol &
+click-middle = pavucontrol &
 
 [module/bspwm]
 type            = internal/bspwm
-format          = <label-state> <label-mode>
-index-sort      = true
-wrapping-scroll = false
-strip-wsnumbers = true
+format          = <label-state>
+format-background = ${colors.module-bg}
+format-margin = 1
 
-label-mode-background = ${xrdb:color18}
-label-mode-foreground = ${xrdb:color7}
-label-mode-padding    = 1
+padding-left = 3
+padding-right = 4
 
-label-focused            = +
-label-focused-background = ${xrdb:color18}
-label-focused-foreground = ${xrdb:color3}
-label-focused-padding    = 1
+label-focused-background = ${colors.magenta}
+label-focused-padding-right    = ${module/bspwm.padding-right}
+label-focused-padding-left    = ${module/bspwm.padding-left}
 
-label-unfocused            = -
-label-unfocused-background = ${xrdb:color18}
-label-unfocused-foreground = ${xrdb:color8}
-label-unfocused-padding    = 1
+label-occupied-background = ${colors.violet}
+label-occupied-padding-right    = ${module/bspwm.padding-right}
+label-occupied-padding-left    = ${module/bspwm.padding-left}
 
-label-visible            = -
-label-visible-background = ${xrdb:color18}
-label-visible-foreground = ${xrdb:color7}
-label-visible-padding    = 1
+label-urgent-background = ${colors.red}
+label-urgent-padding-right    = ${module/bspwm.padding-right}
+label-urgent-padding-left    = ${module/bspwm.padding-left}
 
-label-urgent            = -
-label-urgent-background = ${xrdb:color18}
-label-urgent-foreground = ${xrdb:color1}
-label-urgent-padding    = 1
+label-empty-background = ${colors.module-bg}
+label-empty-padding-right = ${module/bspwm.padding-right}
+label-empty-padding-left = ${module/bspwm.padding-left}
 
 pin-workspaces = true

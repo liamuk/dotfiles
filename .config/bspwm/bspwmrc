@@ -1,7 +1,11 @@
-touch ~/sentinel
-kupfer &
-pcmanfm -d
-systemctl --user restart sxhkd
-systemctl --user restart dunst
-systemctl --user restart polybar
-touch ~/sentinel2
+#!/bin/sh
+
+bspc monitor -d 0 1 2 3 4
+bspc config window_gap 5
+bspc config focus_follows_pointer true
+
+sh ~/.fehbg
+
+sxhkd &
+polybar -r base &
+dunst &

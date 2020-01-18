@@ -1,0 +1,38 @@
+super + grave 
+  xterm
+
+super + {_,shift + }c 
+  bspc node -{c, k}
+
+super + space 
+  bspc node -s biggest
+
+super + {t,shift+t,f,shift+f} 
+  bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+super + {_,shift + }{h,j,k,l} 
+  bspc node -{f, s} {west,south,north,east}
+
+super + {_,shift + }{p,b,comma,period} 
+  bspc node -{f, s} @{parent,brother,first,second}
+    
+super + bracket{left,right} 
+  bspc desktop -f {prev,next}.local
+
+super + {_,shift + }{1-9} 
+  bspc {desktop -f,node -d} '^{1-9}'
+
+super + {_,shift + }s 
+  maim {_,-s} | xclip -selection clipboard -t image/png
+
+super + F5 
+  dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+
+super + a 
+  dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+    
+super + F7 
+  dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+
+super + 0
+  notify-send 2
