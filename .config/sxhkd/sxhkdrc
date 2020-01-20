@@ -1,5 +1,8 @@
-super + grave 
+super + Tab
   xterm
+
+super + grave
+  sh -c 'if ID=$(xdotool search -class scratchpad); then bspc node $ID --flag hidden -f; else xterm -class scratchpad -geometry 70x5; fi'
 
 super + {_,shift + }c 
   bspc node -{c, k}
@@ -33,3 +36,12 @@ F6
     
 F7 
   dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+
+F9
+  pactl set-sink-mute @DEFAULT_SINK@ toggle;
+
+F10
+  pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+F11
+  sh -c 'pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +5%'

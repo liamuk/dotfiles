@@ -29,14 +29,20 @@ foreground = ${colors.base3}
 
 font-0 = Dejavu Sans Mono:size=9;3
 font-1 = Material Icons:size=11;4
+font-2 = Nafees:size=14
 
 modules-left = bspwm 
-modules-right = cpu ram volume date power
+modules-right = network cpu cputemp ram gpuvol gpumem gputemp volume date power
+tray-position = left
+tray-background = ${colors.module-bg}
+tray-offset-x = 330
+tray-detached = true
+tray-padding = 2
 
 [module/date]
 type = internal/date
 date = %%{F#99}%Y-%m-%d%%{F-}  %H:%M%%{F-}
-date-alt = %A, %d %B %Y  %H:%M:%%{F#fba922}%S%%{F-} %Z
+date-alt = %A, %d %B %Y  %H:%M:%%{F#2aa198}%S%%{F-} %Z
 format-background = ${colors.module-bg}
 format-padding = 2
 
@@ -45,15 +51,23 @@ type = internal/network
 interface = enp34s0
 interval = 3.0
 
-label-connected = %{T3}%local_ip%%{T-}
-label-disconnected-foreground = #66
+format-connected-margin = 1
+label-connected = NET %upspeed:8:8% %downspeed:8:8%
+label-connected-background = ${colors.module-bg}
+label-connected-padding = 2
+
+format-disconnected-margin = 1
+label-disconnected = NET down
+label-disconnected-background = ${colors.module-bg}
+label-disconnected-foreground = ${colors.red}
+label-disconnected-padding = 2
 
 [module/cpu]
 type = internal/cpu
 interval = 0.5
 label = CPU
 format = <label> <ramp-coreload>
-format-margin = 1
+format-margin-left = 1
 format-padding = 2
 format-background = ${colors.module-bg}
 
@@ -86,8 +100,8 @@ ramp-coreload-7-foreground = #ff5555
 [module/ram]
 type = internal/memory
 format = <label>
-label = RAM %percentage_used%%
-format-margin = 0
+label = RAM %percentage_used:2:2%%
+format-margin = 1
 format-padding = 2
 format-background = ${colors.module-bg}
 
@@ -142,13 +156,13 @@ format-volume = VOL <label-volume>
 format-volume-background = ${colors.module-bg}
 format-volume-margin = 1
 format-volume-padding = 2
+label-volume = %percentage:3:3%%
 
 format-muted-background = ${colors.module-bg}
 format-muted-margin = 1
 format-muted-padding = 2
 
-format-muted = VOL mute<label-muted>
-label-muted = 🔇 
+format-muted = VOL mute
 
 ramp-volume-0 = 🔈
 ramp-volume-1 = 🔉
@@ -156,6 +170,48 @@ ramp-volume-2 = 🔊
 
 click-right = pavucontrol &
 click-middle = pavucontrol &
+
+[module/cputemp]
+type = internal/temperature
+
+interval = 5
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input
+warn-temperature = 70
+units = true
+format = <label>
+label = %temperature-c%
+label-padding-right = 2
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.red}
+label-warn-padding-right = 2
+format-background = ${colors.module-bg}
+
+[module/gputemp]
+type=custom/script
+
+interval=5
+exec=nvidia-smi --query-gpu=temperature.gpu --format=csv,nounits,noheader
+label=%output%°C
+label-padding-right=2
+format-background = ${colors.module-bg}
+
+[module/gpuvol]
+type=custom/script
+
+interval=5
+exec=elvish ~/.config/polybar/ramp.elv $(nvidia-smi --query-gpu=utilization.gpu --format=csv,nounits,noheader)
+label=GPU %output%
+label-padding-left=2
+format-background = ${colors.module-bg}
+
+[module/gpumem]
+type=custom/script
+
+interval=5
+exec=nvidia-smi --query-gpu=utilization.memory --format=csv,nounits,noheader
+label=%output:2:2%%
+label-padding=1
+format-background = ${colors.module-bg}
 
 [module/bspwm]
 type            = internal/bspwm
@@ -166,20 +222,30 @@ format-margin = 1
 padding-left = 3
 padding-right = 4
 
+label-focused = %icon%
 label-focused-background = ${colors.magenta}
 label-focused-padding-right    = ${module/bspwm.padding-right}
 label-focused-padding-left    = ${module/bspwm.padding-left}
 
+label-occupied = %icon%
 label-occupied-background = ${colors.violet}
 label-occupied-padding-right    = ${module/bspwm.padding-right}
 label-occupied-padding-left    = ${module/bspwm.padding-left}
 
+label-urgent = %icon%
 label-urgent-background = ${colors.red}
 label-urgent-padding-right    = ${module/bspwm.padding-right}
 label-urgent-padding-left    = ${module/bspwm.padding-left}
 
+label-empty = %icon%
 label-empty-background = ${colors.module-bg}
 label-empty-padding-right = ${module/bspwm.padding-right}
 label-empty-padding-left = ${module/bspwm.padding-left}
+
+ws-icon-0 = 0;%{T3}۱
+ws-icon-1 = 1;%{T3}۲
+ws-icon-2 = 2;%{T3}۳
+ws-icon-3 = 3;%{T3}۴
+ws-icon-4 = 4;%{T3}۵
 
 pin-workspaces = true
