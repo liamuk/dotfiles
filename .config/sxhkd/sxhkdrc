@@ -1,8 +1,8 @@
 super + Tab
-  xterm
+  xterm elvish
 
 super + grave
-  sh -c 'if ID=$(xdotool search -class scratchpad); then bspc node $ID --flag hidden -f; else xterm -class scratchpad -geometry 70x5; fi'
+  sh -c 'if ID=$(xdotool search -class scratchpad); then bspc node $ID --flag hidden -f; else xterm -class scratchpad -geometry 80x12; fi'
 
 super + {_,shift + }c 
   bspc node -{c, k}
@@ -14,10 +14,10 @@ super + {t,shift+t,f,shift+f}
   bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 super + {_,shift + }{h,j,k,l} 
-  bspc node -{f, s} {west,south,north,east}
+  bspc node -{f,s} {west,south,north,east}
 
 super + {_,shift + }{p,b,comma,period} 
-  bspc node -{f, s} @{parent,brother,first,second}
+  bspc node -{f,s} @{parent,brother,first,second}
     
 super + bracket{left,right} 
   bspc desktop -f {prev,next}.local
@@ -25,23 +25,32 @@ super + bracket{left,right}
 super + {_,shift + }{1-9} 
   bspc {desktop -f,node -d} '^{1-9}'
 
+super + m
+  bspc node --flag marked
+
 super + {_,shift + }s 
   maim {_,-s} | xclip -selection clipboard -t image/png
 
-F5 
-  dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+F{5,6,7}
+  dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.{Previous,PlayPause,Next}
 
-F6 
-  dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-    
-F7 
-  dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+XF86Audio{Prev,Play,Pause,Next}
+  dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.{Previous,Play,Pause,Next}
 
 F9
+  pactl set-sink-mute @DEFAULT_SINK@ toggle;
+
+XF86AudioMute
   pactl set-sink-mute @DEFAULT_SINK@ toggle;
 
 F10
   pactl set-sink-volume @DEFAULT_SINK@ -5%
 
+XF86AudioLowerVolume
+  pactl set-sink-volume @DEFAULT_SINK@ -5%
+
 F11
+  sh -c 'pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +5%'
+
+XF86AudioRaiseVolume
   sh -c 'pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +5%'

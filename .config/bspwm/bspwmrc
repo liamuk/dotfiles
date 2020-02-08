@@ -13,6 +13,9 @@ sh ~/.fehbg
 sxhkd &
 polybar -r base &
 dunst &
+blueman-applet &
+nm-applet &
+redshift-gtk -l 37.630489:-122.411087 -b 0.9:0.5 -t 6500:3000 &
 
 bspc rule -a scratchpad sticky=on state=floating hidden=on
 xterm -class scratchpad -geometry 70x5 &

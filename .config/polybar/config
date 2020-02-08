@@ -35,9 +35,9 @@ modules-left = bspwm
 modules-right = network cpu cputemp ram gpuvol gpumem gputemp volume date power
 tray-position = left
 tray-background = ${colors.module-bg}
-tray-offset-x = 330
+tray-offset-x = 310
 tray-detached = true
-tray-padding = 2
+tray-padding = 10
 
 [module/date]
 type = internal/date
