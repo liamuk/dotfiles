@@ -15,6 +15,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.useOSProber = true;
 
+  boot.extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
+
   # Define hostname.
   networking.hostName = "kumail-nix";
 
