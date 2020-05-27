@@ -5,3 +5,5 @@
 #defaults write com.apple.finder CreateDesktop -bool false
 # TODO do I want the following?
 #defaults write com.apple.Terminal FocusFollowsMouse -string YES
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
+sudo mdutil -a -i off

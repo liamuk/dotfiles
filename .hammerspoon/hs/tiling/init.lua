@@ -144,6 +144,8 @@ function getSpace()
   trueWindows = hs.fnutils.filter(currentWindows, function (w)
     return
       not excluded[w:id()] and
+      not (w:application():title() == "Electron") and
+      not (w:application():title() == "Siempre") and
       w:isStandard() and
       w:screen() == hs.screen.mainScreen()
   end)
