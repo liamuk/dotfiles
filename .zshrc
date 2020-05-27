@@ -16,3 +16,5 @@ export ONLINETOWN_GAMESERVERS=root@five.siempre.io,root@six.siempre.io,root@seve
 export ONLINETOWN_HTTPSERVERS=root@one.siempre.io,root@two.siempre.io,root@three.siempre.io,root@four.siempre.io
 export ONLINETOWN_GAMESERVERS_DEV=root@thirty.siempre.io
 export ONLINETOWN_LOADTESTSERVERS=root@thirtyone.siempre.io,root@thirtytwo.siempre.io,root@thirtythree.siempre.io,root@thirtyfour.siempre.io,root@thirtyfive.siempre.io
+
+source ~/.credentials
